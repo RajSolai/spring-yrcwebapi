@@ -28,6 +28,7 @@ public class VolunteerController {
     }
 
     @RequestMapping(path = "/volunteers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public String getVolunteers(HttpServletResponse response) {
         JSONArray jsonArray = new JSONArray();
         database.getCollection("yrc_vols")
@@ -50,6 +51,7 @@ public class VolunteerController {
 
     // Add a New Volunteer
     @RequestMapping(path = "/volunteers" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
     public void addVolunteer(@RequestBody MultiValueMap<String,String> data , HttpServletResponse response){
         Document volunteerModel = new Document();
         volunteerModel.put("avatarurl",data.get("avatarurl").get(0));
@@ -62,6 +64,7 @@ public class VolunteerController {
     }
 
     @RequestMapping(path="/volunteers/{id}", method = RequestMethod.DELETE)
+    @CrossOrigin
     public String removeVolunteer(@PathVariable String id, HttpServletResponse response){
         database.getCollection("yrc_vols")
                 .findOneAndDelete(Filters.eq("_id",new ObjectId(id)));

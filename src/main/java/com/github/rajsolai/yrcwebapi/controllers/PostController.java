@@ -28,6 +28,7 @@ public class PostController {
 
     // Get all the events
     @RequestMapping(path = "/events" , produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public String getAllEvents(HttpServletResponse response){
         JSONArray jsonArray = new JSONArray();
         database
@@ -52,6 +53,7 @@ public class PostController {
 
     // get recent events
     @RequestMapping(path ="/recents", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public String getRecentEvents(HttpServletResponse response){
         JSONArray jsonArray = new JSONArray();
         database
@@ -76,6 +78,7 @@ public class PostController {
 
     // Add a New Event
     @RequestMapping(path = "/events" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
     public void addEvent(@RequestBody MultiValueMap<String,String> data , HttpServletResponse response){
         Document eventModel = new Document();
         eventModel.put("uploaddate",data.get("uploaddate").get(0));
@@ -91,6 +94,7 @@ public class PostController {
 
     // Remove a Event by Id
     @RequestMapping(path = "/events/{id}" , method = RequestMethod.DELETE)
+    @CrossOrigin
     public String removeEvent(@PathVariable String id,HttpServletResponse response){
         database.getCollection("yrcevents")
                 .findOneAndDelete(Filters.eq("_id",new ObjectId(id)));
