@@ -25,7 +25,7 @@ public class VolunteerController {
 
     @RequestMapping(path = "/volunteers", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public String getVolunteers(HttpServletResponse response) {
+    public String getVolunteers() {
         JSONArray jsonArray = new JSONArray();
         database.getCollection("yrc_vols")
                 .find()
@@ -41,7 +41,6 @@ public class VolunteerController {
                             ).getJson()
                     );
                 });
-        response.setContentType("application/json");
         return jsonArray.toString();
     }
 

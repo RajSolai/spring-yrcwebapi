@@ -28,7 +28,7 @@ public class PostController {
     // Get all the events
     @RequestMapping(path = "/events" , produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public String getAllEvents(HttpServletResponse response){
+    public String getAllEvents(){
         JSONArray jsonArray = new JSONArray();
         database
                 .getCollection("yrcevents")
@@ -46,14 +46,13 @@ public class PostController {
                       ).getJson()
                     );
         });
-        response.setContentType("application/json");
         return jsonArray.toString();
     }
 
     // get recent events
     @RequestMapping(path ="/recents", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public String getRecentEvents(HttpServletResponse response){
+    public String getRecentEvents(){
         JSONArray jsonArray = new JSONArray();
         database
                 .getCollection("yrcevents")
@@ -71,7 +70,6 @@ public class PostController {
                     ).getJson()
             );
         });
-        response.setContentType("application/json");
         return jsonArray.toString();
     }
 
