@@ -9,6 +9,7 @@ import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,6 +89,27 @@ public class PostController {
         database.getCollection("yrcevents").insertOne(eventModel);
         response.setStatus(200);
     }
+
+    // Get one Event by Id
+    @RequestMapping(path = "/event/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getAnEvent(@PathVariable String id) {
+        Document eventDocument = database.getCollection("yrcevents")
+                .find(Filters.eq("_id",new ObjectId(id)))
+                .first();
+        assert eventDocument != null;
+        EventPost eventPost = new EventPost(
+                eventDocument.get("_id").toString(),
+                eventDocument.get("uploaddate").toString(),
+                eventDocument.get("title").toString(),
+                eventDocument.get("imgtag").toString(),
+                eventDocument.get("imgurl").toString(),
+                eventDocument.get("story").toString(),
+                eventDocument.get("desc").toString(),
+                eventDocument.get("links").toString()
+        );
+        return eventPost.getJson().toString();
+    }
+
 
     // Remove a Event by Id
     @RequestMapping(path = "/events/{id}" , method = RequestMethod.DELETE)
