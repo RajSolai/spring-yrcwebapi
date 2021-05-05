@@ -77,7 +77,7 @@ public class PostController {
     }
 
     // Add a New Event
-    @RequestMapping(path = "/events" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/events/add" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
     public void addEvent(@RequestBody MultiValueMap<String,String> data , HttpServletResponse response){
         Document eventModel = new Document();

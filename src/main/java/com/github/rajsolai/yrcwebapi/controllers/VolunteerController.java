@@ -50,7 +50,7 @@ public class VolunteerController {
     }
 
     // Add a New Volunteer
-    @RequestMapping(path = "/volunteers" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/volunteers/add" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
     public void addVolunteer(@RequestBody MultiValueMap<String,String> data , HttpServletResponse response){
         Document volunteerModel = new Document();
@@ -63,7 +63,7 @@ public class VolunteerController {
         response.setStatus(200);
     }
 
-    @RequestMapping(path="/volunteers/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path="/volunteers/rm/{id}", method = RequestMethod.DELETE)
     @CrossOrigin
     public String removeVolunteer(@PathVariable String id, HttpServletResponse response){
         database.getCollection("yrc_vols")
