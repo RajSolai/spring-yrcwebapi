@@ -6,16 +6,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.Filter;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
+import java.util.Map;
 
 @RestController
 public class VolunteerController {
@@ -50,15 +46,15 @@ public class VolunteerController {
     }
 
     // Add a New Volunteer
-    @RequestMapping(path = "/volunteers/add" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/volunteers/add" , method = RequestMethod.POST )
     @CrossOrigin
-    public void addVolunteer(@RequestBody MultiValueMap<String,String> data , HttpServletResponse response){
+    public void addVolunteer(@RequestBody Map<String,String> data , HttpServletResponse response){
         Document volunteerModel = new Document();
-        volunteerModel.put("avatarurl",data.get("avatarurl").get(0));
-        volunteerModel.put("name",data.get("name").get(0));
-        volunteerModel.put("contact",data.get("contact").get(0));
-        volunteerModel.put("dept",data.get("dept").get(0));
-        volunteerModel.put("year",data.get("year").get(0));
+        volunteerModel.put("avatarurl",data.get("avatarurl"));
+        volunteerModel.put("name",data.get("name"));
+        volunteerModel.put("contact",data.get("contact"));
+        volunteerModel.put("dept",data.get("dept"));
+        volunteerModel.put("year",data.get("year"));
         database.getCollection("yrc_vols").insertOne(volunteerModel);
         response.setStatus(200);
     }

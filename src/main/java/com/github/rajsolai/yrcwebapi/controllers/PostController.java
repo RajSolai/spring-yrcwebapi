@@ -9,12 +9,11 @@ import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 @RestController
 public class PostController {
@@ -77,17 +76,17 @@ public class PostController {
     }
 
     // Add a New Event
-    @RequestMapping(path = "/events/add" , method = RequestMethod.POST ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/events/add" , method = RequestMethod.POST )
     @CrossOrigin
-    public void addEvent(@RequestBody MultiValueMap<String,String> data , HttpServletResponse response){
+    public void addEvent(@RequestBody Map<String,String> data , HttpServletResponse response){
         Document eventModel = new Document();
-        eventModel.put("uploaddate",data.get("uploaddate").get(0));
-        eventModel.put("title",data.get("title").get(0));
-        eventModel.put("imgtag",data.get("imgtag").get(0));
-        eventModel.put("imgurl",data.get("imgurl").get(0));
-        eventModel.put("story",data.get("story").get(0));
-        eventModel.put("desc",data.get("desc").get(0));
-        eventModel.put("links",data.get("links").get(0));
+        eventModel.put("uploaddate",data.get("uploaddate"));
+        eventModel.put("title",data.get("title"));
+        eventModel.put("imgtag",data.get("imgtag"));
+        eventModel.put("imgurl",data.get("imgurl"));
+        eventModel.put("story",data.get("story"));
+        eventModel.put("desc",data.get("desc"));
+        eventModel.put("links",data.get("links"));
         database.getCollection("yrcevents").insertOne(eventModel);
         response.setStatus(200);
     }
